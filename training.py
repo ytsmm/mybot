@@ -1,10 +1,14 @@
-import random
+from chatterbot.trainers import ChatterBotCorpusTrainer
+from chatterbot.trainers import ListTrainer
+from chatterbot import ChatBot
 
-GREETING_INPUTS = ("привет", "прив", "хай", "ку")
-GREETING_RESPONSES = ["Приветствую!", "Доброго времени суток!", "Рад встрече!"]
 
-def greet(text):
-    for i in range(len(text)):
-        for word in text[i]:
-            if word in GREETING_INPUTS:
-                return random.choice(GREETING_RESPONSES)
+chatty = ChatBot('Friend')
+list_trainer = ListTrainer(chatty)
+trainer = ChatterBotCorpusTrainer(chatty)
+
+trainer.train(
+    "chatterbot.corpus.russian"
+)
+
+list_trainer.train("Чат-бот - это виртуальный собеседник")
