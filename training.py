@@ -1,14 +1,21 @@
-from chatterbot.trainers import ChatterBotCorpusTrainer
-from chatterbot.trainers import ListTrainer
-from chatterbot import ChatBot
+import nltk
+import morph_analyzer
+
+fin = open('chatbot.txt', 'r', encoding='utf8', errors='ignore')
+text = fin.read()
+start_text = nltk.sent_tokenize(text)
 
 
-chatty = ChatBot('Friend')
-list_trainer = ListTrainer(chatty)
-trainer = ChatterBotCorpusTrainer(chatty)
+def training(new_response):
 
-trainer.train(
-    "chatterbot.corpus.russian"
-)
+    train_text = []
+    for sen in start_text:
+        a = morph_analyzer.morph(sen)
+        s = ''
+        s = s + a + ' '
+        train_text.append(s)
 
-list_trainer.train("Чат-бот - это виртуальный собеседник")
+    train_text.append(new_response)
+
+    return train_text
+

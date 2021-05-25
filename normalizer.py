@@ -1,14 +1,14 @@
 # Нормализация
-punctuation = ['(', ')', '?', ':', ';', ',', '.', '!', '/', '"', "'"]
-print(type(punctuation))
-def normalize(a):
-    for i in range(len(a)):
-        for word in a[i]:
-            if word in punctuation:
-                a[i].remove(word)
-    s = 0; print("Нормализация: ")
-    for i in a:
-        s += 1;
-        print(f"Предложение {s}:")
-        print(i)
-    return a
+import string
+
+punctuation = ['(', ')', '?', ':', ';', ',', '.', '!', '/', '"', "'", '[', ']', '{', '}', '*', '%', '<', '>', '@', '#', '^', '&']
+
+def normalizer(a):
+    norm_text = []
+    #for i in range(len(a)):
+    for word in a:
+        #norm_text.append([])
+        #for word in a[i]:
+            if word not in punctuation:
+                norm_text.append(word)
+    return norm_text

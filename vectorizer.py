@@ -1,16 +1,15 @@
-import gensim
-
-w2v_fpath = "all.norm-sz100-w10-cb0-it1-min100.w2v"
-w2v = gensim.models.KeyedVectors.load_word2vec_format(w2v_fpath, binary=True, unicode_errors='ignore')
-w2v.init_sims(replace=True)
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 
-def vectorizer(a):
-    vector_text = []
-    for i in range(len(a)):
-        vector_text.append([])
-        for token in a[i]:
-            vector_text[i].append(w2v.most_similar(token))
-    return vector_text
+def vectorizer(tr_text):
+    TfidfVec = TfidfVectorizer()
+    tfidf = TfidfVec.fit_transform(tr_text)
+    sim = cosine_similarity(tfidf[-1], tfidf)
+    index = sim.argsort()[0][-2]
+    flat = sim.flatten()
+    flat.sort()
+    max_tfidf = flat[-2]
 
-
+    a = [max_tfidf, index]
+    return a
