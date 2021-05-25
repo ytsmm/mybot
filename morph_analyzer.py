@@ -20,7 +20,7 @@ def morph(raw):
 
     # Удаление стоп-слов
     stop_text = stop_words.stop(lem_text)
-    #print(fin_text)
+    #print(stop_text)
 
     filtered_text = ''
     for i in stop_text:
